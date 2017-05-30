@@ -1,16 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Channel from './components/Channel';
-import ChatInput from './components/ChatInput';
-import {createStore} from 'redux'
+import ChatInterface from './containers/ChatInterface';
+import App from './containers/App';
+import {createStore, applyMiddleware} from 'redux';
+import {Provider} from 'react-redux';
+import {createLogger} from 'redux-logger';
+import rootReducer from './reducer'
+
+const logger = createLogger();
+const createStoreWithMiddleware = applyMiddleware(logger)(createStore); 
+const initialState = {};
+const store = createStoreWithMiddleware(rootReducer);
 const title = 'ASAPP chat';
 
 ReactDOM.render(
-    <div>
-    {title}
-    <Channel></Channel>
-    <ChatInput></ChatInput>
-    </div>,
+    <Provider store={store}>
+        <App>
+            <ChatInterface />
+        </App>
+    </Provider>,
     document.getElementById('app')
 );
 

@@ -1,0 +1,18 @@
+.Input {
+    width: 85%;
+    display: inline-block;
+    font-size: 15px;
+    border: 0;
+    padding: 1em 0.5em; 
+}
+
+.Input:focus, .Button:focus {
+    outline-width: 0;
+}
+
+.Button {
+    display: inline-block;
+    width: 15%;
+    padding: 1em 1.5em;
+    border: 0;
+}
