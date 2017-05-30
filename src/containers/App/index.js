@@ -2,9 +2,15 @@ import React from 'react';
 import styles from './style.css';
 
 export function App(props) {
+    const childrenWithProps = React.Children.map(
+        props.children,
+        (child) => React.cloneElement(child, {
+                session: props.session
+            })
+        );
     return (
-        <div>
-        {React.Children.toArray(props.children)}
+        <div className={styles.AppContainer}>
+            {childrenWithProps}
         </div>
     )
 }

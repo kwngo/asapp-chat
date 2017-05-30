@@ -5,11 +5,9 @@ import Immutable from 'immutable';
 
 const ChatMessages = (props) => {
     var messages = props.messages.map((m, i) => {
-        let sent = _parseSent(m.userId, props.currentUser.id)
+        let sent = _parseSent(m.user.id, props.currentUser.id)
         return (
             <Message 
-                receiveClassName={props.receiveClassName}
-                sentClassName={props.sentClassName}
                 key={i}
                 sent={sent}
                 content={m.content}

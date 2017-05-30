@@ -2,11 +2,7 @@
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
+    height: 100vh;
     overflow: hidden;
 }
 
@@ -14,42 +10,24 @@
     display: flex;
     flex: 0 0 8%;
     color: #000;
-    background: #ED4854;
-    color: #FFF;
+    background: #FFF;
+    color: #000;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     font-weight: 600;
+    border-bottom: 1px solid #f5f5f5;
 }
 
 .ChatMessages {
     flex: 1 1 87%;
     display: flex;
-    background: #F3F0EB;
+    background: #FFF;
     flex-direction: column;
     overflow: auto;
     padding: 1em;
 }
 
-.ChatMessageItem {
-    background: #FFF;
-    color: #000;
-    font-weight: 500;
-    padding: 0.5em 1em;
-    margin: 0.5em 0;
-    align-self: flex-start;
-    border-radius: 4px;
-}
-
-.ChatMessageItemSent {
-    background: #D7BAAB;
-    color: #000;
-    font-weight: 500;
-    padding: 0.5em 1em;
-    margin: 0.5em 0;
-    align-self: flex-end;
-    border-radius: 4px;
-}
 .ChatInput {
     flex: 0 0 5%;
     padding: 0.5em;

@@ -6,8 +6,9 @@ import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import {createLogger} from 'redux-logger';
 import {Iterable} from 'immutable';
-import rootReducer from './reducer'
-
+import createReducer from './reducer'
+import styles from './defaults.css';
+import { getSessions, getToken } from './sessions'; 
 // Support for immutable
 const logger = createLogger({
   stateTransformer: (state) => {
@@ -26,15 +27,25 @@ const logger = createLogger({
 });
 
 const createStoreWithMiddleware = applyMiddleware(logger)(createStore); 
-const initialState = {};
+const rootReducer = createReducer();
 const store = createStoreWithMiddleware(rootReducer);
+const julieToken = getToken('julie');
+const robToken = getToken('rob')
+const sessionJulie = getSessions(julieToken);
+console.log(sessionJulie, "JULIE")
+const sessionRob = getSessions(robToken);
 const title = 'ASAPP chat';
 
 ReactDOM.render(
     <Provider store={store}>
-        <App>
+        <div className={styles.MainContainer}>
+        <App session={sessionRob}>
             <ChatInterface />
         </App>
+        <App session={sessionJulie}>
+            <ChatInterface />
+        </App>
+        </div>
     </Provider>,
     document.getElementById('app')
 );

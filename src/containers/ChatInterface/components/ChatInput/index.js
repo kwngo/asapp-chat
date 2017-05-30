@@ -12,7 +12,6 @@ const ChatInput = (props) => {
                     name="message"
                     placeholder="Write your message here..."
                     onChange={props.handleMessage} 
-                    value={props.message}
                     ref={props.inputRef}
                     autoComplete="off"
                 /> 

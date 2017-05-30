@@ -10,3 +10,7 @@
 :global(*) {
     box-sizing: border-box;
 }
+
+.AppContainer {
+    flex: 1 1 0;  
+}

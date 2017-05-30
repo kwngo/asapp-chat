@@ -6,10 +6,12 @@ import ChatInput from './components/ChatInput';
 import ChatMessages from './components/ChatMessages';
 import styles from './style.css';
 import {loadMessages, sendMessage, handleMessage} from './actions';
+
 class ChatInterface extends Component {
     constructor() {
         super()
-        this.inputRef = this.inputRef.bind(this)
+        this.inputRef = this.inputRef.bind(this);
+        this.dispatchSendMessage = this.dispatchSendMessage.bind(this);
     }
     componentDidMount() {
         this.messageInput.focus()
@@ -17,26 +19,33 @@ class ChatInterface extends Component {
     inputRef(input) {
         this.messageInput = input;
     }
+    dispatchSendMessage(e) {
+        e.preventDefault();
+        var message = {
+            content: e.target.message.value,
+            user: this.props.session.currentUser,
+            createdAt: new Date()
+        };
+        e.target.message.value = "";
+        this.props.sendMessage(message);
+    }
     render() {
        return (
             <div className={styles.ChatInterface}>
-            <div className={styles.ChatHeader}>
-                <div>User name</div>
-            </div>
-            <ChatMessages 
-                containerClassName={styles.ChatMessages} 
-                receiveClassName={styles.ChatMessageItem} 
-                sentClassName={styles.ChatMessageItemSent}
-                messages={this.props.messages}
-                currentUser={this.props.currentUser}
-            />
-            <ChatInput 
-                className={styles.ChatInput}
-                sendMessage={this.props.sendMessage}
-                handleMessage={this.props.handleMessage}
-                message={this.props.message}
-                inputRef={this.inputRef}
-            />
+                <div className={styles.ChatHeader}>
+                    <div>User name</div>
+                </div>
+                <ChatMessages 
+                    containerClassName={styles.ChatMessages} 
+                    messages={this.props.messages}
+                    currentUser={this.props.session.currentUser}
+                />
+                <ChatInput 
+                    className={styles.ChatInput}
+                    sendMessage={this.dispatchSendMessage}
+                    handleMessage={this.props.handleMessage}
+                    inputRef={this.inputRef}
+                />
             </div>
         )
     }
@@ -45,7 +54,7 @@ class ChatInterface extends Component {
 ChatInterface.propTypes = {
     messages: PropTypes.instanceOf(Immutable.List).isRequired,
     participants: PropTypes.array.isRequired,
-    user: PropTypes.object.isRequired
+    currentUser: PropTypes.object.isRequired
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -53,14 +62,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         loadMessages: () => {
             dispatch(loadMessages());
         },
-        sendMessage: (e) => {
-            e.preventDefault()
-            var message = {
-                content: e.target.message.value,
-                user: ownProps.user,
-                createdAt: new Date()
-            };
-            e.target.message.value = "";
+        sendMessage: (message) => {
             dispatch(sendMessage(message));
         },
         handleMessage: (e) => {
@@ -73,8 +75,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 const mapStateToProps = (state) => {
     return {
         messages: state.chat.get('messages'),
-        message: state.chat.get('message'),
-        currentUser: state.chat.get('currentUser')
+        message: state.chat.get('message')
     }
 }
 
