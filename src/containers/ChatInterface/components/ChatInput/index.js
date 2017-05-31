@@ -26,6 +26,9 @@ const ChatInput = (props) => {
 }
 
 ChatInput.propTypes = {
+    addMessage: PropTypes.func.isRequired,
+    handleMessage: PropTypes.func.isRequired,
+    inputRef: PropTypes.func.isRequired,
     className: PropTypes.string 
 }
 
