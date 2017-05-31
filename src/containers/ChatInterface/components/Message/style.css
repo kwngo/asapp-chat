@@ -19,22 +19,31 @@
     flex-wrap: nowrap;
 }
 
+.Right {
+    float: right;
+}
+
+.Left {
+}
+
 .Timestamp {
-    display: inline;
+    display: inline-block;
     font-size: 0.6em;
     padding-top: 1em;
 }
 
-.MessageReceived {
+.BubbleContainer {
     display: inline-block;
+    max-width: 250px;
+}
+
+.MessageReceived {
     font-weight: 500;
     margin: 0.5em 0;
     align-self: flex-start;
 }
 
 .ChatBubbleSent {
-    display: inline-block;
-    max-width: 250px;
     background: #F1F8FF;
     color: #000;
     padding: 0.5em 1em;
@@ -43,8 +52,6 @@
 }
 
 .ChatBubbleReceived {
-    display: inline-block;
-    max-width: 250px;
     background: #FDF7E6; 
     color: #000;
     padding: 0.5em 1em;

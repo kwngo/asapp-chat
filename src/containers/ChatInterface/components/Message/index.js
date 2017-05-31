@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import styles from './style.css';
 import moment from 'moment';
+import TimeAgo from 'react-timeago';
 
 export default class Message extends Component { 
     render() {
-        let time = moment(this.props.createdAt).fromNow(); 
         return (
             <div className={this.props.sent ? styles.MessageSent : styles.MessageReceived}>
                 <div className={styles.Content}>
@@ -14,8 +14,9 @@ export default class Message extends Component {
                         className={styles.Avatar}
                     />
                 </div>
-                <div className={this.props.sent ? styles.ChatBubbleSent : styles.ChatBubbleReceived}>
-                    <span>{this.props.content}</span>
+                <div className={styles.BubbleContainer}>
+                    <div className={this.props.sent ? styles.ChatBubbleSent : styles.ChatBubbleReceived}>{this.props.content}</div>
+                    <TimeAgo className={styles.Timestamp + " " + (this.props.sent ? styles.Right : styles.Left)} date={this.props.createdAt} />
                 </div>
                 </div>
             </div>
