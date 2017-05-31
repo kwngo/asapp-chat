@@ -1,0 +1,15 @@
+.Indicator {
+    background: #FDF7E6; 
+    max-width: 80%;
+    color: #000;
+    font-weight: 500;
+    padding: 0.5em 1em;
+    margin: 0.5em 0;
+    align-self: flex-start;
+    word-wrap: break-word;
+    border-radius: 4px;
+}
+
+.Hidden {
+    display: none;
+}

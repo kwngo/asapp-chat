@@ -5,7 +5,7 @@ import styles from './style.css';
 const ChatInput = (props) => {
     return (
         <div className={props.className}>
-            <form onSubmit={props.sendMessage}>
+            <form onSubmit={props.addMessage}>
                 <input 
                     className={styles.Input} 
                     type="text" 

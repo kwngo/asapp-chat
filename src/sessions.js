@@ -6,18 +6,22 @@ const ROB_TOKEN = uuidv4();
 
 const sessionsObj = {}
 
+export const userRob = {
+    id: '1',
+    username: 'Rob'
+}
+
+export const userJulie = {
+    id: '2',
+    username: 'Julie'
+}
+
 sessionsObj[ROB_TOKEN] = {
-    currentUser: {
-        id: '1',
-        username: 'Rob'
-    }
+    currentUser: userRob
 };
 
 sessionsObj[JULIE_TOKEN] = {
-    currentUser: {
-        id: '2',
-        username: 'Julie'
-    }
+    currentUser: userJulie
 };
 
 const sessions = new Map(sessionsObj);
@@ -25,6 +29,12 @@ const tokens = new Map({
     'julie': JULIE_TOKEN,
     'rob': ROB_TOKEN
 });
+
+export function getParticipants(chatId, userId) {
+    return [
+        userRob, userJulie
+    ].filter((u)=>{return u.id != userId});
+}
 
 export function getToken(param) {
     let token = tokens.get(param);

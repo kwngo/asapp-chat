@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import thunk from 'redux-thunk';
 import ChatInterface from './containers/ChatInterface';
 import App from './containers/App';
 import {createStore, applyMiddleware} from 'redux';
@@ -26,13 +27,14 @@ const logger = createLogger({
   }
 });
 
-const createStoreWithMiddleware = applyMiddleware(logger)(createStore); 
+
+const middleware = [logger, thunk]
+const createStoreWithMiddleware = applyMiddleware(...middleware)(createStore); 
 const rootReducer = createReducer();
 const store = createStoreWithMiddleware(rootReducer);
 const julieToken = getToken('julie');
 const robToken = getToken('rob')
 const sessionJulie = getSessions(julieToken);
-console.log(sessionJulie, "JULIE")
 const sessionRob = getSessions(robToken);
 const title = 'ASAPP chat';
 

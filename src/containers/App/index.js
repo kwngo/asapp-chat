@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './style.css';
 
 export function App(props) {
@@ -16,7 +17,7 @@ export function App(props) {
 }
 
 App.propTypes = {
-    children: React.PropTypes.node
+    children: PropTypes.node
 }
 
 export default App;
