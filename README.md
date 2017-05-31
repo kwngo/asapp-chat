@@ -16,4 +16,4 @@ npm install
 npm start
 ```
 
-The server will now be running at ```localhost:8080```.
+The server will now be running at ```localhost:8080```. To run unit tests, use ```npm test```
