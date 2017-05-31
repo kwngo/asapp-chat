@@ -6,9 +6,6 @@ import {
     ADD_MESSAGE,
     ADD_MESSAGE_SUCCESS,
     ADD_MESSAGE_FAIL,
-    RECEIVE_MESSAGE,
-    RECEIVE_MESSAGE_SUCCESS,
-    RECEIVE_MESSAGE_FAIL,
     HANDLE_TYPING,
     HANDLE_STOP_TYPING,
     FETCH_PARTICIPANTS,
@@ -50,16 +47,6 @@ export default function chatInterfaceReducer(state = initialState, action) {
         case ADD_MESSAGE_FAIL:
             const index = state.findIndex(i => i.id === action.message.id)
             return state.setIn(['messages', index, 'error'], true)
-        case RECEIVE_MESSAGE:
-            return state
-                .set(state.messages.size, action.message)
-                .set('isSendingMessage', true)
-        case RECEIVE_MESSAGE_SUCCESS:
-            return state.set('isSendingMessage', false) 
-        case RECEIVE_MESSAGE_FAIL:
-            return state
-                .set('isSendingMessage', false)
-                .set('error', action.error);
         case HANDLE_TYPING:
             return state
                 .set('usersTyping', state.get('usersTyping')
