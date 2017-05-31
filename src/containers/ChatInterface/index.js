@@ -32,6 +32,9 @@ class ChatInterface extends Component {
     }
     dispatchAddMessage(e) {
         e.preventDefault();
+        if (e.target.message.value == "") {
+            return;
+        }
         var message = {
             content: e.target.message.value,
             user: this.props.session.currentUser,
@@ -51,11 +54,15 @@ class ChatInterface extends Component {
         this.props.handleTyping(this.props.session.currentUser)
     }
     render() {
-       let participant = this.props.participants
+       let participants = this.props.participants.toJS()
+            .filter(u => { return u.id != this.props.session.currentUser.id})
+            .map(p => {
+                return p.username
+            }).join(", ")
        return (
             <div className={styles.ChatInterface}>
                 <div className={styles.ChatHeader}>
-                    <div>{'Username'}</div>
+                    <div>{participants}</div>
                 </div>
                 <ChatMessages 
                     containerClassName={styles.ChatMessages} 

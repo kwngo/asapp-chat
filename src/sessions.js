@@ -33,7 +33,7 @@ const tokens = new Map({
 export function getParticipants(chatId, userId) {
     return [
         userRob, userJulie
-    ].filter((u)=>{return u.id != userId});
+    ];
 }
 
 export function getToken(param) {
