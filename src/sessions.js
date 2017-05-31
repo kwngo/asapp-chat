@@ -8,12 +8,14 @@ const sessionsObj = {}
 
 export const userRob = {
     id: '1',
-    username: 'Rob'
+    username: 'Rob',
+    avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/brad_frost/128.jpg'
 }
 
 export const userJulie = {
     id: '2',
-    username: 'Julie'
+    username: 'Julie',
+    avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/adellecharles/128.jpg'
 }
 
 sessionsObj[ROB_TOKEN] = {

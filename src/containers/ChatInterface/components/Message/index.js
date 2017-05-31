@@ -4,12 +4,19 @@ import moment from 'moment';
 
 export default class Message extends Component { 
     render() {
-        var time = moment(this.props.createdAt).fromNow()
+        let time = moment(this.props.createdAt).fromNow(); 
         return (
             <div className={this.props.sent ? styles.MessageSent : styles.MessageReceived}>
-                {this.props.content}
-                <div className={styles.Timestamp}>
-                    sent {time}
+                <div className={styles.Content}>
+                <div className={this.props.sent ? styles.Hidden : styles.AvatarContainer}>
+                    <img 
+                        src={this.props.avatar}
+                        className={styles.Avatar}
+                    />
+                </div>
+                <div className={this.props.sent ? styles.ChatBubbleSent : styles.ChatBubbleReceived}>
+                    <span>{this.props.content}</span>
+                </div>
                 </div>
             </div>
         )
