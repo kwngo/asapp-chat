@@ -1,5 +1,5 @@
 # asapp-chat
-Simple chat frontend built using Reactjs and Redux.
+Simple chat frontend built using Reactjs, Redux and ImmutableJS.
 
 # Future features
 - Infinite scroll: Currently all chat messages are kept in DOM even when they are out of view. This is highly efficient. We should render only DOM nodes that user is able to see.
