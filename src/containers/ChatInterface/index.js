@@ -2,16 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable'
 import { connect } from 'react-redux';
+import ChatHeader from './components/ChatHeader';
 import ChatInput from './components/ChatInput';
 import ChatMessages from './components/ChatMessages';
 import ChatTypingIndicator from './components/ChatTypingIndicator';
+import connectTimeouts from '../../common/ConnectTimeouts';
 import styles from './style.css';
 import {loadMessages, addMessage, handleTyping, handleStopTyping, fetchParticipants} from './actions';
 
 class ChatInterface extends Component {
     constructor(props) {
         super(props)
-        this.typingTimeout = null;
         this.inputRef = this.inputRef.bind(this);
         this.dispatchAddMessage = this.dispatchAddMessage.bind(this);
         this.dispatchHandleMessage = this.dispatchHandleMessage.bind(this);
@@ -24,12 +25,19 @@ class ChatInterface extends Component {
             this.props.session.currentUser.id
         );
     }
+
     componentDidMount() {
-        this.messageInput.focus()
+        this.messageInput.focus();
     }
+
+    componentWillUnmount() {
+        this.props.clearTimeouts();
+    }
+
     inputRef(input) {
         this.messageInput = input;
     }
+
     dispatchAddMessage(e) {
         e.preventDefault();
         if (e.target.message.value == "") {
@@ -42,28 +50,27 @@ class ChatInterface extends Component {
             createdAt: new Date()
         };
         e.target.message.value = "";
+        this.props.clearTimeouts();
         this.props.addMessage(message);
     }
+
     dispatchHandleMessage(e) {
         e.preventDefault();
-        clearTimeout(this.typingTimeout)
-        this.typingTimeout = setTimeout(() => {
+        this.props.clearTimeouts()
+        this.props.setTimeout(() => {
             this.props.handleStopTyping(this.props.session.currentUser);
-            this.typingTimeout = null;
-        }, 3000)
+        }, 3000);
         this.props.handleTyping(this.props.session.currentUser)
     }
+
     render() {
-       let participants = this.props.participants.toJS()
-            .filter(u => { return u.id != this.props.session.currentUser.id})
-            .map(p => {
-                return p.username
-            }).join(", ")
        return (
             <div className={styles.ChatInterface}>
-                <div className={styles.ChatHeader}>
-                    <div>{participants}</div>
-                </div>
+                <ChatHeader 
+                    className={styles.ChatHeader} 
+                    participants={this.props.participants.toJS()}
+                    currentUser={this.props.session.currentUser}
+                />
                 <ChatMessages 
                     containerClassName={styles.ChatMessages} 
                     messages={this.props.messages}
@@ -119,4 +126,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChatInterface)
+export default connect(mapStateToProps, mapDispatchToProps)(connectTimeouts(ChatInterface))
