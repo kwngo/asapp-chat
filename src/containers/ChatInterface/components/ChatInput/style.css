@@ -1,18 +1,30 @@
+.Form {
+    display: flex;
+}
 .Input {
-    width: 85%;
     display: inline-block;
+    width: 100%;
     font-size: 15px;
     border: 0;
-    padding: 1em 0.5em; 
+    padding: 0.5em 1em; 
 }
 
 .Input:focus, .Button:focus {
     outline-width: 0;
 }
 
+.InputContainer {
+    flex: 0 0 80%;
+}
+
+.ButtonContainer {
+    flex: 0 0 20%;
+}
 .Button {
-    display: inline-block;
-    width: 15%;
+    background: #5BDA6B;
+    color: #FFF;
+    font-size: 1em;
+    font-weight: 700;
     padding: 1em 1.5em;
     border: 0;
     cursor: pointer;

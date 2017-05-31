@@ -5,7 +5,8 @@ import styles from './style.css';
 const ChatInput = (props) => {
     return (
         <div className={props.className}>
-            <form onSubmit={props.addMessage}>
+            <form onSubmit={props.addMessage} className={styles.Form}>
+                <div className={styles.InputContainer}>
                 <input 
                     className={styles.Input} 
                     type="text" 
@@ -15,7 +16,10 @@ const ChatInput = (props) => {
                     ref={props.inputRef}
                     autoComplete="off"
                 /> 
-            <button className={styles.Button} type="submit">Send</button>
+                </div>
+                <div className={styles.ButtonContainer}>
+                    <button className={styles.Button} type="submit">Send</button>
+                </div>
             </form>
         </div>
     )
