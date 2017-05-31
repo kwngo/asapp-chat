@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Immutable from 'immutable'
+import Immutable from 'immutable';
+import {debounce} from 'throttle-debounce';
 import { connect } from 'react-redux';
 import ChatHeader from './components/ChatHeader';
 import ChatInput from './components/ChatInput';
@@ -15,7 +16,7 @@ class ChatInterface extends Component {
         super(props)
         this.inputRef = this.inputRef.bind(this);
         this.dispatchAddMessage = this.dispatchAddMessage.bind(this);
-        this.dispatchHandleMessage = this.dispatchHandleMessage.bind(this);
+        this.dispatchHandleMessage = debounce(200, this.dispatchHandleMessage.bind(this));
         this.props.fetchParticipants(
             this.props.chatId, 
             this.props.session.currentUser.id
@@ -55,7 +56,6 @@ class ChatInterface extends Component {
     }
 
     dispatchHandleMessage(e) {
-        e.preventDefault();
         this.props.clearTimeouts()
         this.props.setTimeout(() => {
             this.props.handleStopTyping(this.props.session.currentUser);
